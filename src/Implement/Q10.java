@@ -71,7 +71,6 @@ public class Q10 {
 							hash.add(new_key_lock[n+k-1][n+l-1]);	// hashset에 자물쇠 가운데 부분 넣고
 						}
 					}
-					
 					if(hash.size() == 1 && hash.contains(1)) {	// hashset의 모든 요소가 1인지 확인
 						result = true;
 					}
