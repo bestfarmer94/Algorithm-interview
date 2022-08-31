@@ -51,8 +51,11 @@ public class Q14 {
 	
 	
 	static void permutation(boolean[] visited, int[] res, int depth) {
+		if(answer == 1) {
+			return;
+		}
 		
-		if(depth == dist.size() || answer == 1) {
+		if(depth == dist.size()) {
 			for(int i=0; i<res.length; i++) {
 				System.out.print(res[i]);
 			}
