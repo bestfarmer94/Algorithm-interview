@@ -33,8 +33,8 @@ public class Q27 {
 			mid = (start + end) / 2;
 			
 			if(arr[mid] == x) {
-				if(mid == 0 || arr[mid-1] < x) {
-					x_start = mid;
+				if(mid == 0 || arr[mid-1] < x) {	// 배열이 out of index 나올까 걱정했는데, mid == 0 에서 참이 나오면
+					x_start = mid;					// 그 뒤의 조건문은 보지도 않아서 오류 메세지가 안뜨나 보다.
 					break;
 				}else {
 					end = mid - 1;
