@@ -12,25 +12,25 @@ public class Q39 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 		
-//		3
-//		3
-//		5 5 4
-//		3 9 1
-//		3 2 7
-//		5
-//		3 7 2 0 1
-//		2 8 0 9 1
-//		1 2 1 8 1
-//		9 8 9 2 0
-//		3 6 5 1 5
-//		7
-//		9 0 5 1 1 5 3
-//		4 1 2 1 6 5 3
-//		0 7 6 1 6 8 5
-//		1 1 7 8 3 2 3
-//		9 4 0 7 6 4 1
-//		5 8 3 2 4 8 3
-//		7 4 8 4 8 3 4
+//3
+//3
+//5 5 4
+//3 9 1
+//3 2 7
+//5
+//3 7 2 0 1
+//2 8 0 9 1
+//1 2 1 8 1
+//9 8 9 2 0
+//3 6 5 1 5
+//7
+//9 0 5 1 1 5 3
+//4 1 2 1 6 5 3
+//0 7 6 1 6 8 5
+//1 1 7 8 3 2 3
+//9 4 0 7 6 4 1
+//5 8 3 2 4 8 3
+//7 4 8 4 8 3 4
 		
 		int t = Integer.parseInt(br.readLine());
 		
@@ -39,11 +39,11 @@ public class Q39 {
 		
 		for(int i=0; i<t; i++) {
 			n = Integer.parseInt(br.readLine());
-			int[][] energy = new int[n][n];
+			int[][] energy = new int[n][n];		// 해당 좌표 소모 에너지
 			
 			for(int j=0; j<n; j++) {
+				st = new StringTokenizer(br.readLine());
 				for(int k=0; k<n; k++) {
-					st = new StringTokenizer(br.readLine());
 					energy[j][k] = Integer.parseInt(st.nextToken());
 				}
 			}
@@ -68,18 +68,18 @@ public class Q39 {
 			int[] dy = {1, 0, -1, 0};
 			int nx, ny;
 			
-			while(pq.size() != 0) {
+			while(!pq.isEmpty()) {
 				Dijkstra2 d = pq.poll();
 				
-				for(int j=0; j<4; j++) {
+				for(int j=0; j<4; j++) {	// 4방향 이동.
 					nx = d.x + dx[j];
 					ny = d.y + dy[j];
 					
-					if(nx < 0 || nx >= n || ny < 0 || ny >= n) {
+					if(nx < 0 || nx >= n || ny < 0 || ny >= n) {	// 좌표 범위를 벗어남.
 						continue;
 					}
 					
-					if(d.energy + energy[nx][ny] < min[nx][ny]) {
+					if(d.energy + energy[nx][ny] < min[nx][ny]) {	// 해당 좌표로의 이동이 원래의 직행보다 효율적이라면.
 						min[nx][ny] = d.energy + energy[nx][ny];
 						pq.add(new Dijkstra2(min[nx][ny], nx, ny));
 					}
@@ -108,7 +108,7 @@ class Dijkstra2 implements Comparable<Dijkstra2>{
 	}
 
 	@Override
-	public int compareTo(Dijkstra2 o) {
+	public int compareTo(Dijkstra2 o) {		// 에너지를 기준으로 오름차순 정렬.
 		
 		return this.energy - o.energy;
 	}
