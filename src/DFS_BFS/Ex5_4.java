@@ -3,6 +3,8 @@ package DFS_BFS;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Ex5_4 {
@@ -21,41 +23,56 @@ public class Ex5_4 {
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
 		
-		arr = new int[n][m];
-		for(int i=0; i<n; i++) {
+//5 6
+//101010
+//111111
+//000001
+//111111
+//111111
+		
+		arr = new int[n+2][m+2];
+		
+		for(int i=1; i<n+1; i++) {
 			String str = br.readLine();
-			for(int j=0; j<m; j++) {
-				arr[i][j] = str.charAt(j) - '0';
+			for(int j=1; j<m+1; j++) {
+				arr[i][j] = str.charAt(j-1) - '0';
 			}
 		}
 		
-		result = 0;
-		bfs(0, 0, 1);
+		Queue<Point> q = new LinkedList<Point>();
+		q.add(new Point(1, 1));
 		
-		sb.append(result);
+		int[] dx = new int[] {-1, 0, 1, 0};
+		int[] dy = new int[] {0, 1, 0, -1};
+		
+		while(arr[n][m] == 1) {
+			Point p = q.poll();
+			
+			for(int i=0; i<4; i++) {
+				int nx = p.x + dx[i];
+				int ny = p.y + dy[i];
+				
+				if(arr[nx][ny] == 1) {
+					arr[nx][ny] = arr[p.x][p.y] + 1;
+					q.add(new Point(nx, ny));
+					System.out.println(nx + " " + ny + " " + arr[nx][ny]);
+				}
+				
+			}
+		}
+		
+		sb.append(arr[n][m]);
 		System.out.println(sb);
 		br.close();
 	}
+}
+
+class Point{
+	int x;
+	int y;
 	
-	static void bfs(int y, int x, int count) {
-		
-		if(result != 0) {	// 이미 최단경로가 완성됨.
-			return;
-		}
-				
-		if(y == n-1 && x == m-1) {	// 도착하면 저장.
-			result = count;
-			return;
-		}
-		
-		if(y >= 0 && y < n && x >= 0 && x < m) {	// 도착지점이 외곽이 아닐경우만 생각
-			if(arr[y][x] == 1) {	// 도착한 곳은 0으로 만들고 사방으로 일단 발걸음을 뻗음.
-				arr[y][x] = 0;
-				bfs(y-1, x, count+1);
-				bfs(y, x+1, count+1);
-				bfs(y+1, x, count+1);
-				bfs(y, x-1, count+1);
-			}
-		}
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }
